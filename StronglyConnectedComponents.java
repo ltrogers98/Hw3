@@ -1,5 +1,10 @@
 package edu.cmich.cps542;
 
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Stack;
 
 public class StronglyConnectedComponents {
@@ -85,17 +90,46 @@ public class StronglyConnectedComponents {
 		firstDFS(g);
 		secondDFS(c);
 		System.out.println("Components:");
+		int ComponentNum = 1;
 		for (int i = 0; i<visited.length; i++) {
-			String newComponent= "";
+			if(visited[i]>ComponentNum) {
+				ComponentNum=visited[i];
+			}
+		}
+		HashMap<Integer,ArrayList<Integer>> components = new HashMap<Integer,ArrayList<Integer>>();
+		for (int i = 0; i<ComponentNum; i++) {
+			components.put(i+1, new ArrayList<Integer>());
 			for (int j = 0; j<visited.length; j++) {
 				if (visited[j]==i+1) {
-					newComponent+=j+",";
+					components.get(i+1).add(j);
 				}
-			}
-			if (newComponent!="") {
-				System.out.println(newComponent.substring(0,newComponent.length()-1));
 			}
 				
 		}
+		for(Integer componentNumber : components.keySet() ){
+		    System.out.print("Component "+componentNumber+": ");
+		    ArrayList<Integer> componentNodes = components.get(componentNumber);
+		    for(int i = 0; i<componentNodes.size(); i++) {
+		    	System.out.print(componentNodes.get(i)+", ");
+		    }
+		    System.out.println();
+		}
+		System.out.println("\n\nAdjacency Lists");
+		Integer[][] adjacentMat = g.getAdjMatrix();
+		for(Integer componentNumber:components.keySet() ) {
+			 System.out.print("Component "+componentNumber+"'s List: ");
+			 ArrayList<Integer> componentNodes = components.get(componentNumber);
+			 HashSet<Integer> adjacent = new HashSet<Integer>();
+			 for(Integer currNode : componentNodes) {
+				 for (int i = 0; i<g.size(); i++) {
+					 if(adjacentMat[currNode][i] == 1&&visited[currNode]!=visited[i]&&!adjacent.contains(visited[i])) {
+						 System.out.print(visited[i]+", ");
+						 adjacent.add(visited[i]);
+					 }
+				 }
+			 }
+			 System.out.println();
+		}
+		System.out.println();
 	}
 }
