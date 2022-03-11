@@ -24,9 +24,9 @@ public class StronglyConnectedComponents {
 	public static int componentCount = 1;
 	
 	/**
-	* TODO
+	* Flipa the graphs around to the opposite graph
 	*
-	* @param currentGraph TODO
+	* @param currentGraph The graph of the iteration with the new flipped edges
 	*/
 	public static Graph displayOpposites(Graph currentGraph) {
 		String edges = "";
@@ -58,10 +58,10 @@ public class StronglyConnectedComponents {
 	}
 	
 	/**
-	* TODO
+	* Performs a depth first search on the graph to label visited nodes
 	*
-	* @param currentGraph TODO
-	* @param node TODO
+	* @param currentGraph The current graph of the iteration
+	* @param node The node of the graph that is being visited
 	*/
 	public static void firstDFS(Graph currentGraph, int node) {
 		visited[node] = 1;
@@ -76,9 +76,9 @@ public class StronglyConnectedComponents {
 	}
 	
 	/**
-	* TODO
+	* Performs a depth first search on the graph to label visited nodesbut with no node param
 	*
-	* @param currentGraph TODO
+	* @param currentGraph The graph to perform a DFS on
 	*/
 	public static void firstDFS(Graph currentGraph) {
 		visited = new int[currentGraph.size()];
@@ -97,9 +97,9 @@ public class StronglyConnectedComponents {
 	}
 	
 	/**
-	* TODO
+	* Performs a second DFS on the graph to count components but with no node param
 	*
-	* @param currentGraph TODO
+	* @param currentGraph The graph for the DFS to be performed on
 	*/
 	public static void secondDFS(Graph currentGraph) {
 		visited = new int[currentGraph.size()];
@@ -114,10 +114,10 @@ public class StronglyConnectedComponents {
 	}
 	
 	/**
-	* TODO
+	* erforms a second DFS on the graph to count components
 	*
-	* @param currentGraph TODO
-	* @param node TODO
+	* @param currentGraph The graph to perform the DFS on
+	* @param node The visited node
 	*/
 	public static void secondDFS(Graph currentGraph, int node) {
 		visited[node] = componentCount;
@@ -131,9 +131,9 @@ public class StronglyConnectedComponents {
 	}
 	
 	/**
-	* TODO
+	* The method to find the components of the graph and create the adjaceny lists
 	*
-	* @param currentGraph TODO
+	* @param currentGraph The graph to find the connected components of and the adjacency list
 	*/
 	public static void findComponents(Graph currentGraph) {
 		Graph oppositeGraph = displayOpposites(currentGraph);
