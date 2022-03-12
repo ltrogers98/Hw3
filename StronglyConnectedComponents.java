@@ -9,14 +9,14 @@ import java.util.Stack;
 
 /**
 * Finds and displays strongly connected components along with their adjency list. It utilizes
-* DFS (depth first search) to ****INSERT HERE**** before ****INSERT HERE****.
+* DFS (depth first search) to identify strongly connected componenets and their adjacency list
 *
 * @author brock1hj
 * @author jagre1d
 * @author roger1lt
 * @author stron1le
 *
-* @since 03/09/2022
+* @since 03/09/2022s
 */
 public class StronglyConnectedComponents {
 	public static int[] visited;
