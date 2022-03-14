@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Stack;
 
 /**
-* Finds and displays strongly connected components along with their adjacency list. It utilizes
+* Finds and displays strongly connected components along with their adjency list. It utilizes
 * DFS (depth first search) to identify strongly connected componenets and their adjacency list
 *
 * @author brock1hj
@@ -16,7 +16,7 @@ import java.util.Stack;
 * @author roger1lt
 * @author stron1le
 *
-* @since 03/09/2022
+* @since 03/09/2022s
 */
 public class StronglyConnectedComponents {
 	public static int[] visited;
@@ -24,9 +24,10 @@ public class StronglyConnectedComponents {
 	public static int componentCount = 1;
 	
 	/**
-	* Flips the graphs around to the opposite graph
+	* Flips the graph's adjacency directions, and returns the new 'opposite' graph.
 	*
 	* @param currentGraph The graph of the iteration with the new flipped edges
+	* @return The inverted graph.
 	*/
 	public static Graph displayOpposites(Graph currentGraph) {
 		String edges = "";
@@ -58,7 +59,7 @@ public class StronglyConnectedComponents {
 	}
 	
 	/**
-	* Performs a depth first search on the graph to label visited nodes
+	* Performs a depth first search on the graph to add them to a stack.
 	*
 	* @param currentGraph The current graph of the iteration
 	* @param node The node of the graph that is being visited
@@ -76,7 +77,8 @@ public class StronglyConnectedComponents {
 	}
 	
 	/**
-	* Performs a depth first search on the graph to label visited nodes but with no node param
+	* Performs a depth first search on the graph to add vertices to 
+	* stack in order that they were visited.
 	*
 	* @param currentGraph The graph to perform a DFS on
 	*/
@@ -97,7 +99,8 @@ public class StronglyConnectedComponents {
 	}
 	
 	/**
-	* Performs a second DFS on the graph to count components but with no node param
+	* Starts the second dfs to collect and define all components,
+	* until all nodes have been assigned.
 	*
 	* @param currentGraph The graph for the DFS to be performed on
 	*/
@@ -114,7 +117,8 @@ public class StronglyConnectedComponents {
 	}
 	
 	/**
-	* Performs a second DFS on the graph to count components
+	* Performs a second DFS on the graph to count components and
+	* assign vertices.
 	*
 	* @param currentGraph The graph to perform the DFS on
 	* @param node The visited node
@@ -131,14 +135,20 @@ public class StronglyConnectedComponents {
 	}
 	
 	/**
-	* The method to find the components of the graph and create the adjaceny lists
+	* Finds all strongly-connected components of the graph and 
+	* prints their adjacency lists
 	*
-	* @param currentGraph The graph to find the connected components of and the adjacency list
+	* @param currentGraph The graph to find the connected components 
+	*                      and the adjacency lists for
 	*/
 	public static void findComponents(Graph currentGraph) {
+		
+		//Assign each vertex a component number.
 		Graph oppositeGraph = displayOpposites(currentGraph);
 		firstDFS(currentGraph);
 		secondDFS(oppositeGraph);
+		
+		//find the maximum number of components.
 		System.out.println("Components:");
 		int componentNum = 1;
 		for (int i = 0; i < visited.length; i++) {
@@ -146,7 +156,11 @@ public class StronglyConnectedComponents {
 				componentNum = visited[i];
 			}
 		}
+		
+		//Define a hashmap to contain the 'list' of attached vertices.
 		HashMap<Integer,ArrayList<Integer>> components = new HashMap<Integer,ArrayList<Integer>>();
+		
+		//for each number, create a list to hold vertices.
 		for (int i = 0; i < componentNum; i++) {
 			components.put(i + 1, new ArrayList<Integer>());
 			for (int j = 0; j < visited.length; j++) {
@@ -155,6 +169,8 @@ public class StronglyConnectedComponents {
 				}
 			}
 		}
+		
+		//print every component and its vertices.
 		for(Integer componentNumber : components.keySet() ){
 		    System.out.print("Component " + componentNumber + ": ");
 		    ArrayList<Integer> componentNodes = components.get(componentNumber);
@@ -163,16 +179,29 @@ public class StronglyConnectedComponents {
 		    }
 		    System.out.println();
 		}
+		
+		//print every adjacency list for the components.
 		System.out.println("\n\nAdjacency Lists:");
+		
+		//create the adjacency matrix.
 		Integer[][] adjacentMat = currentGraph.getAdjMatrix();
+		
+		//for every component
 		for(Integer componentNumber: components.keySet() ) {
 			 System.out.print("Component " + componentNumber + "'s List: ");
+			 
+			 //get the vertices of the component, and create an adjacent set
 			 ArrayList<Integer> componentNodes = components.get(componentNumber);
 			 HashSet<Integer> adjacent = new HashSet<Integer>();
+			 
+			 //if a vertex in another component is connected to a vertex in the current component, and that vertex is not in the current component,
+			 //then there is an adjacency between components.
 			 for(Integer currNode : componentNodes) {
 				 for (int i = 0; i < currentGraph.size(); i++) {
 					 if(adjacentMat[currNode][i] == 1 && visited[currNode] != visited[i] && !adjacent.contains(visited[i])) {
 						 System.out.print(visited[i] + ", ");
+						 
+						 //add all visited components to this set.
 						 adjacent.add(visited[i]);
 					 }
 				 }
