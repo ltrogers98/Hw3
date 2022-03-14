@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Stack;
 
 /**
-* Finds and displays strongly connected components along with their adjency list. It utilizes
+* Finds and displays strongly connected components along with their adjacency list. It utilizes
 * DFS (depth first search) to identify strongly connected componenets and their adjacency list
 *
 * @author brock1hj
@@ -16,7 +16,7 @@ import java.util.Stack;
 * @author roger1lt
 * @author stron1le
 *
-* @since 03/09/2022s
+* @since 03/09/2022
 */
 public class StronglyConnectedComponents {
 	public static int[] visited;
@@ -24,7 +24,7 @@ public class StronglyConnectedComponents {
 	public static int componentCount = 1;
 	
 	/**
-	* Flipa the graphs around to the opposite graph
+	* Flips the graphs around to the opposite graph
 	*
 	* @param currentGraph The graph of the iteration with the new flipped edges
 	*/
@@ -76,7 +76,7 @@ public class StronglyConnectedComponents {
 	}
 	
 	/**
-	* Performs a depth first search on the graph to label visited nodesbut with no node param
+	* Performs a depth first search on the graph to label visited nodes but with no node param
 	*
 	* @param currentGraph The graph to perform a DFS on
 	*/
@@ -114,7 +114,7 @@ public class StronglyConnectedComponents {
 	}
 	
 	/**
-	* erforms a second DFS on the graph to count components
+	* Performs a second DFS on the graph to count components
 	*
 	* @param currentGraph The graph to perform the DFS on
 	* @param node The visited node
